@@ -1,14 +1,15 @@
 import pyperclip, time, subprocess
-from openai import OpenAI
+import google.generativeai as genai
 
-client = OpenAI(api_key="YOUR_API_KEY")
+genai.configure(api_key="YOUR_API_KEY_HERE")
+model = genai.GenerativeModel("gemini-flash-latest")
 
 def make_formal(text):
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[{"role": "user", "content": f"Make this text more formal:\n\n{text}"}]
-    )
-    return response.choices[0].message.content.strip()
+    prompt = f"""Rewrite the following text in a more formal, corporate and kind tone. Return ONLY the rewritten text with no explanations, alternatives, or additional formatting:
+
+{text}"""
+    response = model.generate_content(prompt)
+    return response.text.strip()
 
 # Copy selected text
 subprocess.run(["osascript", "-e", 'tell application "System Events" to keystroke "c" using {command down}'])
