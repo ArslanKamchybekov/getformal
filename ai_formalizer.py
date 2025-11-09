@@ -5,7 +5,7 @@ genai.configure(api_key="YOUR_API_KEY_HERE")
 model = genai.GenerativeModel("gemini-flash-latest")
 
 def make_formal(text):
-    prompt = f"""Rewrite the following text in a more formal, corporate and kind tone. Return ONLY the rewritten text with no explanations, alternatives, or additional formatting:
+    prompt = f"""Rewrite the following text in a more professional and polite tone. Keep it natural and conversational but slightly more formal. Return ONLY the rewritten text with no explanations, alternatives, or additional formatting:
 
 {text}"""
     response = model.generate_content(prompt)
